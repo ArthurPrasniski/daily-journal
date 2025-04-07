@@ -1,6 +1,7 @@
+import 'package:daily_journal/presentation/screens/main_screen.dart';
 import 'package:flutter/material.dart';
-import  '../../presentation/screens/welcome.dart';
-import '../../presentation/screens/home.dart';
+import  'presentation/screens/welcome_screen.dart';
+import 'presentation/screens/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const WelcomeScreen(),
-        '/home': (context) => const HomeScreen(),
+        '/main': (context) => const MainScreen(),
       },
     );
   }
