@@ -15,7 +15,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late Future<List<ArticleModel>> _articlesFuture;
   late Future<List<ArticleModel>> _everythingFuture;
-  
+
   final NewsRepository _repository = NewsRepository(api: NewsApiService());
   final NewsEverythingRepository _everythingRepository =
       NewsEverythingRepository(api: NewsApiEverythingService());
@@ -26,7 +26,6 @@ class _HomeScreenState extends State<HomeScreen> {
     _articlesFuture = _repository.fetchTopHeadlines();
     _everythingFuture = _everythingRepository.fetchEverything();
   }
-  
 
   @override
   Widget build(BuildContext context) {
@@ -100,52 +99,59 @@ class _HomeScreenState extends State<HomeScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       // Carrossel de notícias
-                      SizedBox(
-                        height: 200,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: articles.length,
-                          itemBuilder: (context, index) {
-                            final article = articles[index];
-                            return Container(
-                              width: 300,
-                              margin: const EdgeInsets.only(right: 16),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16),
-                                color: Colors.white,
-                                image: DecorationImage(
-                                  image: NetworkImage(article.urlToImage ?? ''),
-                                  fit: BoxFit.cover,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/article');
+                        },
+                        child: SizedBox(
+                          height: 200,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: articles.length,
+                            itemBuilder: (context, index) {
+                              final article = articles[index];
+                              return Container(
+                                width: 300,
+                                margin: const EdgeInsets.only(right: 16),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(16),
+                                  color: Colors.white,
+                                  image: DecorationImage(
+                                    image: NetworkImage(
+                                      article.urlToImage ?? '',
+                                    ),
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
-                              ),
-                              child: Stack(
-                                children: [
-                                  Positioned(
-                                    bottom: 16,
-                                    left: 12,
-                                    right: 12,
-                                    child: Text(
-                                      article.title ?? '',
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                        shadows: [
-                                          Shadow(
-                                            color: Colors.black54,
-                                            blurRadius: 6,
-                                            offset: Offset(0, 2),
-                                          ),
-                                        ],
+                                child: Stack(
+                                  children: [
+                                    Positioned(
+                                      bottom: 16,
+                                      left: 12,
+                                      right: 12,
+                                      child: Text(
+                                        article.title ?? '',
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          shadows: [
+                                            Shadow(
+                                              color: Colors.black54,
+                                              blurRadius: 6,
+                                              offset: Offset(0, 2),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
                         ),
                       ),
 
